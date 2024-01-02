@@ -1,8 +1,7 @@
 name: ci
 
 on:
-  pull-request:
-    branches: [sll]
+  pull_request:
 
 jobs:
   tests:
