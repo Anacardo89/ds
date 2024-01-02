@@ -1,7 +1,8 @@
 name: unit tests
 
-on: push
-  branches: [sll]
+on:
+  pull-request:
+    branches: [sll]
 
 jobs:
   tests:
