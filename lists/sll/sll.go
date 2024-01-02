@@ -97,10 +97,16 @@ func (l *SLL) Remove(val interface{}) (interface{}, error) {
 }
 
 func (l *SLL) InsertAt(idx int, val interface{}) error {
-	if idx > l.length-1 {
+	if idx > l.length {
 		return errors.New("index exceeds length")
 	}
 	n := node{val: val}
+	if idx == 0 {
+		n.next = l.head
+		l.head = &n
+		l.length++
+		return nil
+	}
 	current, prev := l.head, l.head
 	for i := 0; i < idx; i++ {
 		prev = current
