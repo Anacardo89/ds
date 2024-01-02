@@ -2,6 +2,7 @@ name: ci
 
 on:
   pull-request:
+    branches: [sll]
 
 jobs:
   tests:
