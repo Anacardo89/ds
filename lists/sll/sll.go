@@ -16,8 +16,6 @@ type SLL struct {
 func New() SLL {
 	return SLL{
 		length: 0,
-		head:   nil,
-		tail:   nil,
 	}
 }
 
@@ -62,22 +60,40 @@ func (l *SLL) Append(val interface{}) {
 }
 
 func (l *SLL) Remove(val interface{}) (interface{}, error) {
-	current, prev := l.head, l.head
-	for i := 0; i < l.length-1; i++ {
+	current := l.head
+	var prev *node
+	if l.length == 0 {
+		return val, errors.New("empty list")
+	}
+	for i := 0; i < l.length; i++ {
 		if current.val == val {
-			prev.next = current.next
-			current.next = nil
-			l.length--
-			if l.length == 0 {
-				l.head = nil
-				l.tail = nil
-			}
-			return val, nil
+			break
 		}
 		prev = current
-		current = current.next
+		if current.next != nil {
+			current = current.next
+		} else {
+			return val, errors.New("value not in list")
+		}
 	}
-	return val, errors.New("value not in list")
+	if l.length == 1 {
+		l.length--
+		l.head = nil
+		l.tail = nil
+		return val, nil
+	}
+	if current == l.head {
+		l.head = current.next
+		current = nil
+	} else if current == l.tail {
+		l.tail = prev
+		prev.next = nil
+	} else {
+		prev.next = current.next
+		current = nil
+	}
+	l.length--
+	return val, nil
 }
 
 func (l *SLL) InsertAt(idx int, val interface{}) error {
