@@ -101,9 +101,21 @@ func (l *SLL) InsertAt(idx int, val interface{}) error {
 		return errors.New("index exceeds length")
 	}
 	n := node{val: val}
+	if l.length == 0 {
+		l.head = &n
+		l.tail = &n
+		l.length++
+		return nil
+	}
 	if idx == 0 {
 		n.next = l.head
 		l.head = &n
+		l.length++
+		return nil
+	}
+	if idx == l.length {
+		l.tail.next = &n
+		l.tail = &n
 		l.length++
 		return nil
 	}
@@ -119,13 +131,35 @@ func (l *SLL) InsertAt(idx int, val interface{}) error {
 }
 
 func (l *SLL) RemoveAt(idx int) error {
-	if idx > l.length-1 {
+	if l.length == 0 {
+		return errors.New("empty list")
+	}
+	if idx >= l.length {
 		return errors.New("index exceeds length")
 	}
-	current, prev := l.head, l.head
+	current := l.head
+	var prev *node
+	if l.length == 1 {
+		l.length--
+		l.head = nil
+		l.tail = nil
+		return nil
+	}
+	if idx == 0 {
+		l.head = current.next
+		current.next = nil
+		l.length--
+		return nil
+	}
 	for i := 0; i < idx; i++ {
 		prev = current
 		current = current.next
+	}
+	if idx == l.length-1 {
+		l.tail = prev
+		prev.next = nil
+		l.length--
+		return nil
 	}
 	prev.next = current.next
 	current.next = nil
@@ -134,7 +168,10 @@ func (l *SLL) RemoveAt(idx int) error {
 }
 
 func (l *SLL) GetAt(idx int) (interface{}, error) {
-	if idx > l.length-1 {
+	if l.length == 0 {
+		return nil, errors.New("empty list")
+	}
+	if idx >= l.length {
 		return nil, errors.New("index exceeds length")
 	}
 	current := l.head
