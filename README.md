@@ -1,3 +1,6 @@
+![ALT_TEXT](https://github.com/Anacardo89/ds/workflows/ci.yml/badge.svg
+)
+
 # Data structures
 
 Because a codebase has to start somewhere
