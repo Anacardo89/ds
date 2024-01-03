@@ -25,14 +25,14 @@ func (l *SLL) GetLength() int {
 
 func (l *SLL) GetHead() (interface{}, error) {
 	if l.length == 0 {
-		return nil, errors.New("list has no nodes")
+		return nil, errors.New("empty list")
 	}
 	return l.head.val, nil
 }
 
 func (l *SLL) GetTail() (interface{}, error) {
 	if l.length == 0 {
-		return nil, errors.New("list has no nodes")
+		return nil, errors.New("empty list")
 	}
 	return l.tail.val, nil
 }
