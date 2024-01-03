@@ -1,3 +1,3 @@
 # Data structures
 
-A codebase has to start somewhere
+Because a codebase has to start somewhere
