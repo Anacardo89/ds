@@ -1,4 +1,4 @@
-package sll
+package dll
 
 import (
 	"errors"
@@ -7,12 +7,12 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestSLL_New(t *testing.T) {
+func TestDLL_New(t *testing.T) {
 	l := New()
 	assert.Empty(t, l)
 }
 
-func TestSLL_GetLength(t *testing.T) {
+func TestDLL_GetLength(t *testing.T) {
 	l := New()
 	l.Append(1)
 
@@ -37,7 +37,7 @@ func TestSLL_GetLength(t *testing.T) {
 	})
 }
 
-func TestSLL_GetHead(t *testing.T) {
+func TestDLL_GetHead(t *testing.T) {
 	l := New()
 
 	t.Run("Get Head - No Node in List", func(t *testing.T) {
@@ -67,7 +67,7 @@ func TestSLL_GetHead(t *testing.T) {
 	})
 }
 
-func TestSLL_GetTail(t *testing.T) {
+func TestDLL_GetTail(t *testing.T) {
 	l := New()
 
 	t.Run("Get Tail - No Node in List", func(t *testing.T) {
@@ -97,7 +97,7 @@ func TestSLL_GetTail(t *testing.T) {
 	})
 }
 
-func TestSLL_Prepend(t *testing.T) {
+func TestDLL_Prepend(t *testing.T) {
 	l := New()
 
 	t.Run("Prepend 1", func(t *testing.T) {
@@ -119,7 +119,7 @@ func TestSLL_Prepend(t *testing.T) {
 	})
 }
 
-func TestSLL_Append(t *testing.T) {
+func TestDLL_Append(t *testing.T) {
 	l := New()
 
 	t.Run("Append 1", func(t *testing.T) {
@@ -141,7 +141,7 @@ func TestSLL_Append(t *testing.T) {
 	})
 }
 
-func TestSLL_Remove(t *testing.T) {
+func TestDLL_Remove(t *testing.T) {
 	l := New()
 	l.Append(1)
 	l.Append(2)
@@ -176,7 +176,7 @@ func TestSLL_Remove(t *testing.T) {
 	})
 }
 
-func TestSLL_InsertAt(t *testing.T) {
+func TestDLL_InsertAt(t *testing.T) {
 	l := New()
 
 	t.Run("Insert outside the list", func(t *testing.T) {
@@ -209,7 +209,7 @@ func TestSLL_InsertAt(t *testing.T) {
 	})
 }
 
-func TestSLL_RemoveAt(t *testing.T) {
+func TestDLL_RemoveAt(t *testing.T) {
 	l := New()
 
 	t.Run("Remove from empty list", func(t *testing.T) {
@@ -257,7 +257,7 @@ func TestSLL_RemoveAt(t *testing.T) {
 	})
 }
 
-func TestSLL_GetAt(t *testing.T) {
+func TestDLL_GetAt(t *testing.T) {
 	l := New()
 
 	t.Run("Get from empty list", func(t *testing.T) {
