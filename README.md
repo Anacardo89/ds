@@ -1,4 +1,4 @@
-![ALT_TEXT](https://github.com/Anacardo89/ds/actions/workflows/ci.yaml/badge.svg)
+![ALT_TEXT](https://github.com/Anacardo89/ds/actions/workflows/test.yaml/badge.svg)
 
 # Data structures
 
