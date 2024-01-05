@@ -189,3 +189,17 @@ func (l *DLL) GetAt(idx int) (interface{}, error) {
 	}
 	return current.val, nil
 }
+
+func (l *DLL) WalkTo(idx int) (*node, error) {
+	if l.length == 0 {
+		return nil, errors.New("empty list")
+	}
+	if idx >= l.length {
+		return nil, errors.New("index exceeds length")
+	}
+	current := l.head
+	for i := 0; i < idx; i++ {
+		current = current.next
+	}
+	return current, nil
+}
