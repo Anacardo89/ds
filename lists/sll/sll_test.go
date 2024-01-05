@@ -279,13 +279,56 @@ func TestSLL_GetAt(t *testing.T) {
 		assert.Equal(t, val, 5)
 	})
 
-	t.Run("Remove last Index", func(t *testing.T) {
+	t.Run("Get last Index", func(t *testing.T) {
 		val, _ := l.GetAt(2)
 		assert.Equal(t, val, 15)
 	})
 
-	t.Run("Remove middle Index", func(t *testing.T) {
+	t.Run("Get middle Index", func(t *testing.T) {
 		val, _ := l.GetAt(1)
 		assert.Equal(t, val, 10)
+	})
+}
+
+func TestSLL_WalkTo(t *testing.T) {
+	idx := 0
+	l := New()
+
+	t.Run("Walk in empty list", func(t *testing.T) {
+		idx = 1
+		_, err := l.WalkTo(idx)
+		assert.Equal(t, err, errors.New("empty list"))
+	})
+
+	l.Append(5)
+	l.Append(10)
+	l.Append(15)
+
+	t.Run("Walk outside the list", func(t *testing.T) {
+		idx = 3
+		_, err := l.WalkTo(idx)
+		assert.Equal(t, err, errors.New("index exceeds length"))
+	})
+
+	t.Run("Walk to first Index", func(t *testing.T) {
+		idx = 0
+		node, _ := l.WalkTo(idx)
+		assert.Equal(t, node, l.head)
+	})
+
+	t.Run("Walk to last Index", func(t *testing.T) {
+		idx = 2
+		node, _ := l.WalkTo(idx)
+		assert.Equal(t, node, l.tail)
+	})
+
+	t.Run("Walk to middle Index", func(t *testing.T) {
+		idx = 1
+		node, _ := l.WalkTo(idx)
+		current := l.head
+		for i := 0; i < idx; i++ {
+			current = current.next
+		}
+		assert.Equal(t, node, current)
 	})
 }

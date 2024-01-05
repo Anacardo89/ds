@@ -9,6 +9,17 @@ I develop this as i need them or as i fancy
 Impletemented:
 - Singly Linked Lists
 - Doubly Linked Lists
+With Methods:
+- (l \*LL) GetLength() int
+- (l \*LL) GetHead() (interface{}, error)
+- (l \*LL) GetTail() (interface{}, error)
+- (l \*LL) Prepend(val interface{})
+- (l \*LL) Append(val interface{})
+- (l \*LL) Remove(val interface{}) (interface{}, error)
+- (l \*LL) InsertAt(idx int, val interface{}) error
+- (l \*LL) RemoveAt(idx int) error
+- (l \*LL) GetAt(idx int) (interface{}, error)
+- (l \*LL) WalkTo(idx int) (\*node, error)
 
 Tested:
 - Singly Linked Lists
