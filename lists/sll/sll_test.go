@@ -166,8 +166,8 @@ func TestSLL_Remove(t *testing.T) {
 
 	t.Run("Remove Only", func(t *testing.T) {
 		l.Remove(2)
-		assert.Equal(t, l.head, (*node)(nil))
-		assert.Equal(t, l.tail, (*node)(nil))
+		assert.Equal(t, l.head, (*Node)(nil))
+		assert.Equal(t, l.tail, (*Node)(nil))
 	})
 
 	t.Run("Remove From Empty List", func(t *testing.T) {
@@ -226,8 +226,8 @@ func TestSLL_RemoveAt(t *testing.T) {
 
 	t.Run("Remove only value", func(t *testing.T) {
 		_ = l.RemoveAt(0)
-		assert.Equal(t, l.head, (*node)(nil))
-		assert.Equal(t, l.tail, (*node)(nil))
+		assert.Equal(t, l.head, (*Node)(nil))
+		assert.Equal(t, l.tail, (*Node)(nil))
 	})
 
 	l.Append(5)
