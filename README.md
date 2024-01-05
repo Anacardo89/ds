@@ -20,7 +20,7 @@ With Methods:
 - (l \*LL) InsertAt(idx int, val interface{}) error
 - (l \*LL) RemoveAt(idx int) error
 - (l \*LL) GetAt(idx int) (interface{}, error)
-- (l \*LL) WalkTo(idx int) (\*node, error)
+- (l \*LL) WalkTo(idx int) (\*Node, error)
 
 Tested:
 - Singly Linked Lists
