@@ -166,8 +166,8 @@ func TestDLL_Remove(t *testing.T) {
 
 	t.Run("Remove Only", func(t *testing.T) {
 		l.Remove(2)
-		assert.Equal(t, l.head, (*node)(nil))
-		assert.Equal(t, l.tail, (*node)(nil))
+		assert.Equal(t, l.head, (*Node)(nil))
+		assert.Equal(t, l.tail, (*Node)(nil))
 	})
 
 	t.Run("Remove From Empty List", func(t *testing.T) {
@@ -226,8 +226,8 @@ func TestDLL_RemoveAt(t *testing.T) {
 
 	t.Run("Remove only value", func(t *testing.T) {
 		_ = l.RemoveAt(0)
-		assert.Equal(t, l.head, (*node)(nil))
-		assert.Equal(t, l.tail, (*node)(nil))
+		assert.Equal(t, l.head, (*Node)(nil))
+		assert.Equal(t, l.tail, (*Node)(nil))
 	})
 
 	l.Append(5)
@@ -312,23 +312,23 @@ func TestDLL_WalkTo(t *testing.T) {
 
 	t.Run("Walk to first Index", func(t *testing.T) {
 		idx = 0
-		node, _ := l.WalkTo(idx)
-		assert.Equal(t, node, l.head)
+		Node, _ := l.WalkTo(idx)
+		assert.Equal(t, Node, l.head)
 	})
 
 	t.Run("Walk to last Index", func(t *testing.T) {
 		idx = 2
-		node, _ := l.WalkTo(idx)
-		assert.Equal(t, node, l.tail)
+		Node, _ := l.WalkTo(idx)
+		assert.Equal(t, Node, l.tail)
 	})
 
 	t.Run("Walk to middle Index", func(t *testing.T) {
 		idx = 1
-		node, _ := l.WalkTo(idx)
+		Node, _ := l.WalkTo(idx)
 		current := l.head
 		for i := 0; i < idx; i++ {
 			current = current.next
 		}
-		assert.Equal(t, node, current)
+		assert.Equal(t, Node, current)
 	})
 }

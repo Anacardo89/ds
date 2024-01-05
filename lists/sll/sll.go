@@ -2,15 +2,15 @@ package sll
 
 import "errors"
 
-type node struct {
-	next *node
+type Node struct {
+	next *Node
 	val  interface{}
 }
 
 type SLL struct {
 	length int
-	head   *node
-	tail   *node
+	head   *Node
+	tail   *Node
 }
 
 func New() SLL {
@@ -38,7 +38,7 @@ func (l *SLL) GetTail() (interface{}, error) {
 }
 
 func (l *SLL) Prepend(val interface{}) {
-	n := node{val: val}
+	n := Node{val: val}
 	if l.length == 0 {
 		l.head, l.tail = &n, &n
 	} else {
@@ -49,7 +49,7 @@ func (l *SLL) Prepend(val interface{}) {
 }
 
 func (l *SLL) Append(val interface{}) {
-	n := node{val: val}
+	n := Node{val: val}
 	if l.length == 0 {
 		l.head, l.tail = &n, &n
 	} else {
@@ -61,7 +61,7 @@ func (l *SLL) Append(val interface{}) {
 
 func (l *SLL) Remove(val interface{}) (interface{}, error) {
 	current := l.head
-	var prev *node
+	var prev *Node
 	if l.length == 0 {
 		return val, errors.New("empty list")
 	}
@@ -100,7 +100,7 @@ func (l *SLL) InsertAt(idx int, val interface{}) error {
 	if idx > l.length {
 		return errors.New("index exceeds length")
 	}
-	n := node{val: val}
+	n := Node{val: val}
 	if l.length == 0 {
 		l.head = &n
 		l.tail = &n
@@ -138,7 +138,7 @@ func (l *SLL) RemoveAt(idx int) error {
 		return errors.New("index exceeds length")
 	}
 	current := l.head
-	var prev *node
+	var prev *Node
 	if l.length == 1 {
 		l.length--
 		l.head = nil
@@ -181,7 +181,7 @@ func (l *SLL) GetAt(idx int) (interface{}, error) {
 	return current.val, nil
 }
 
-func (l *SLL) WalkTo(idx int) (*node, error) {
+func (l *SLL) WalkTo(idx int) (*Node, error) {
 	if l.length == 0 {
 		return nil, errors.New("empty list")
 	}

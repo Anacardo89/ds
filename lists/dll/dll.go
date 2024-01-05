@@ -2,16 +2,16 @@ package dll
 
 import "errors"
 
-type node struct {
-	next *node
-	prev *node
+type Node struct {
+	next *Node
+	prev *Node
 	val  interface{}
 }
 
 type DLL struct {
 	length int
-	head   *node
-	tail   *node
+	head   *Node
+	tail   *Node
 }
 
 func New() DLL {
@@ -39,7 +39,7 @@ func (l *DLL) GetTail() (interface{}, error) {
 }
 
 func (l *DLL) Prepend(val interface{}) {
-	n := node{val: val}
+	n := Node{val: val}
 	if l.length == 0 {
 		l.head, l.tail = &n, &n
 	} else {
@@ -51,7 +51,7 @@ func (l *DLL) Prepend(val interface{}) {
 }
 
 func (l *DLL) Append(val interface{}) {
-	n := node{val: val}
+	n := Node{val: val}
 	if l.length == 0 {
 		l.head, l.tail = &n, &n
 	} else {
@@ -84,7 +84,7 @@ func (l *DLL) Remove(val interface{}) (interface{}, error) {
 		return val, nil
 	}
 	current := l.head
-	var prev *node
+	var prev *Node
 	for i := 0; i < l.length; i++ {
 		if current.val == val {
 			break
@@ -106,7 +106,7 @@ func (l *DLL) InsertAt(idx int, val interface{}) error {
 	if idx > l.length {
 		return errors.New("index exceeds length")
 	}
-	n := node{val: val}
+	n := Node{val: val}
 	if l.length == 0 {
 		l.head = &n
 		l.tail = &n
@@ -165,7 +165,7 @@ func (l *DLL) RemoveAt(idx int) error {
 		return nil
 	}
 	current := l.head
-	var prev *node
+	var prev *Node
 	for i := 0; i < idx; i++ {
 		prev = current
 		current = current.next
@@ -190,7 +190,7 @@ func (l *DLL) GetAt(idx int) (interface{}, error) {
 	return current.val, nil
 }
 
-func (l *DLL) WalkTo(idx int) (*node, error) {
+func (l *DLL) WalkTo(idx int) (*Node, error) {
 	if l.length == 0 {
 		return nil, errors.New("empty list")
 	}
