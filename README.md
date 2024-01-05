@@ -8,7 +8,8 @@ I develop this as i need them or as i fancy
 
 Impletemented:
 - Singly Linked Lists
-- Doubly Linked Lists  
+- Doubly Linked Lists
+
 With Methods:
 - (l \*LL) GetLength() int
 - (l \*LL) GetHead() (interface{}, error)
