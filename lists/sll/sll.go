@@ -7,6 +7,21 @@ type Node struct {
 	val  interface{}
 }
 
+func (n *Node) Next() (*Node, error) {
+	if n.next == (*Node)(nil) {
+		return nil, errors.New("next not set")
+	}
+	return n.next, nil
+}
+
+func (n *Node) GetVal() interface{} {
+	return n.val
+}
+
+func (n *Node) SetVal(val interface{}) {
+	n.val = val
+}
+
 type SLL struct {
 	length int
 	head   *Node
