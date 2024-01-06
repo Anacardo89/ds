@@ -7,6 +7,66 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func TestNode_Next(t *testing.T) {
+	l := New()
+	l.Append(10)
+	current, _ := l.WalkTo(0)
+
+	t.Run("Next - Next Not Set", func(t *testing.T) {
+		_, err := current.Next()
+		assert.Equal(t, err, errors.New("next not set"))
+	})
+
+	l.Append(20)
+
+	t.Run("Next", func(t *testing.T) {
+		next, _ := current.Next()
+		assert.Equal(t, current.next.val, next.val)
+	})
+
+}
+
+func TestNode_Prev(t *testing.T) {
+	l := New()
+	l.Append(10)
+	current, _ := l.WalkTo(0)
+
+	t.Run("Prev - Prev Not Set", func(t *testing.T) {
+		_, err := current.Prev()
+		assert.Equal(t, err, errors.New("prev not set"))
+	})
+
+	l.Prepend(20)
+
+	t.Run("Prev", func(t *testing.T) {
+		prev, _ := current.Prev()
+		assert.Equal(t, current.prev.val, prev.val)
+	})
+
+}
+
+func TestNode_GetVal(t *testing.T) {
+	l := New()
+	l.Append(10)
+	current, _ := l.WalkTo(0)
+
+	t.Run("Get Val", func(t *testing.T) {
+		val := current.GetVal()
+		assert.Equal(t, val, 10)
+	})
+}
+
+func TestNode_SetVal(t *testing.T) {
+	l := New()
+	l.Append(10)
+	current, _ := l.WalkTo(0)
+
+	t.Run("Get Val", func(t *testing.T) {
+		current.SetVal(30)
+		assert.Equal(t, current.val, 30)
+	})
+}
+
 func TestDLL_New(t *testing.T) {
 	l := New()
 	assert.Empty(t, l)
