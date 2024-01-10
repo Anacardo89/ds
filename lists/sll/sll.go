@@ -18,10 +18,6 @@ func (n *Node) GetVal() interface{} {
 	return n.val
 }
 
-func (n *Node) GetValPtr() *interface{} {
-	return &n.val
-}
-
 func (n *Node) SetVal(val interface{}) {
 	n.val = val
 }
