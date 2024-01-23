@@ -14,7 +14,7 @@ func (n *Node) Next() (*Node, error) {
 	return n.next, nil
 }
 
-func (n *Node) GetVal() interface{} {
+func (n *Node) Val() interface{} {
 	return n.val
 }
 
@@ -34,22 +34,36 @@ func New() SLL {
 	}
 }
 
-func (l *SLL) GetLength() int {
+func (l *SLL) Length() int {
 	return l.length
 }
 
-func (l *SLL) GetHead() (interface{}, error) {
+func (l *SLL) Head() (interface{}, error) {
 	if l.length == 0 {
 		return nil, errors.New("empty list")
 	}
 	return l.head.val, nil
 }
 
-func (l *SLL) GetTail() (interface{}, error) {
+func (l *SLL) HeadNode() (*Node, error) {
+	if l.length == 0 {
+		return nil, errors.New("empty list")
+	}
+	return l.head, nil
+}
+
+func (l *SLL) Tail() (interface{}, error) {
 	if l.length == 0 {
 		return nil, errors.New("empty list")
 	}
 	return l.tail.val, nil
+}
+
+func (l *SLL) TailNode() (*Node, error) {
+	if l.length == 0 {
+		return nil, errors.New("empty list")
+	}
+	return l.tail, nil
 }
 
 func (l *SLL) Prepend(val interface{}) {

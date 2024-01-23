@@ -26,13 +26,13 @@ func TestNode_Next(t *testing.T) {
 
 }
 
-func TestNode_GetVal(t *testing.T) {
+func TestNode_Val(t *testing.T) {
 	l := New()
 	l.Append(10)
 	current, _ := l.WalkTo(0)
 
 	t.Run("Get Val", func(t *testing.T) {
-		val := current.GetVal()
+		val := current.Val()
 		assert.Equal(t, val, 10)
 	})
 }
@@ -53,19 +53,19 @@ func TestSLL_New(t *testing.T) {
 	assert.Empty(t, l)
 }
 
-func TestSLL_GetLength(t *testing.T) {
+func TestSLL_Length(t *testing.T) {
 	l := New()
 	l.Append(1)
 
 	t.Run("Get Length 1", func(t *testing.T) {
-		length := l.GetLength()
+		length := l.Length()
 		assert.Equal(t, length, 1)
 	})
 
 	l.Append(1)
 
 	t.Run("Get Length 2", func(t *testing.T) {
-		length := l.GetLength()
+		length := l.Length()
 		assert.Equal(t, length, 2)
 	})
 
@@ -73,67 +73,67 @@ func TestSLL_GetLength(t *testing.T) {
 	l.Remove(1)
 
 	t.Run("Get Length 0", func(t *testing.T) {
-		length := l.GetLength()
+		length := l.Length()
 		assert.Equal(t, length, 0)
 	})
 }
 
-func TestSLL_GetHead(t *testing.T) {
+func TestSLL_Head(t *testing.T) {
 	l := New()
 
 	t.Run("Get Head - No Node in List", func(t *testing.T) {
-		_, err := l.GetHead()
+		_, err := l.Head()
 		assert.Equal(t, err, errors.New("empty list"))
 	})
 
 	l.Append(1)
 
 	t.Run("Get Head 1", func(t *testing.T) {
-		head, _ := l.GetHead()
+		head, _ := l.Head()
 		assert.Equal(t, head, 1)
 	})
 
 	l.Prepend(2)
 
 	t.Run("Get Head 2", func(t *testing.T) {
-		head, _ := l.GetHead()
+		head, _ := l.Head()
 		assert.Equal(t, head, 2)
 	})
 
 	l.Remove(2)
 
 	t.Run("Get Head After Remove", func(t *testing.T) {
-		head, _ := l.GetHead()
+		head, _ := l.Head()
 		assert.Equal(t, head, 1)
 	})
 }
 
-func TestSLL_GetTail(t *testing.T) {
+func TestSLL_Tail(t *testing.T) {
 	l := New()
 
 	t.Run("Get Tail - No Node in List", func(t *testing.T) {
-		_, err := l.GetTail()
+		_, err := l.Tail()
 		assert.Equal(t, err, errors.New("empty list"))
 	})
 
 	l.Append(1)
 
 	t.Run("Get Tail 1", func(t *testing.T) {
-		tail, _ := l.GetTail()
+		tail, _ := l.Tail()
 		assert.Equal(t, tail, 1)
 	})
 
 	l.Append(2)
 
 	t.Run("Get Tail 2", func(t *testing.T) {
-		tail, _ := l.GetTail()
+		tail, _ := l.Tail()
 		assert.Equal(t, tail, 2)
 	})
 
 	l.Remove(2)
 
 	t.Run("Get Tail After Remove", func(t *testing.T) {
-		tail, _ := l.GetTail()
+		tail, _ := l.Tail()
 		assert.Equal(t, tail, 1)
 	})
 }

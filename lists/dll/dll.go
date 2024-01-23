@@ -22,7 +22,7 @@ func (n *Node) Prev() (*Node, error) {
 	return n.prev, nil
 }
 
-func (n *Node) GetVal() interface{} {
+func (n *Node) Val() interface{} {
 	return n.val
 }
 
@@ -42,22 +42,36 @@ func New() DLL {
 	}
 }
 
-func (l *DLL) GetLength() int {
+func (l *DLL) Length() int {
 	return l.length
 }
 
-func (l *DLL) GetHead() (interface{}, error) {
+func (l *DLL) Head() (interface{}, error) {
 	if l.length == 0 {
 		return nil, errors.New("empty list")
 	}
 	return l.head.val, nil
 }
 
-func (l *DLL) GetTail() (interface{}, error) {
+func (l *DLL) HeadNode() (*Node, error) {
+	if l.length == 0 {
+		return nil, errors.New("empty list")
+	}
+	return l.head, nil
+}
+
+func (l *DLL) Tail() (interface{}, error) {
 	if l.length == 0 {
 		return nil, errors.New("empty list")
 	}
 	return l.tail.val, nil
+}
+
+func (l *DLL) TailNode() (*Node, error) {
+	if l.length == 0 {
+		return nil, errors.New("empty list")
+	}
+	return l.tail, nil
 }
 
 func (l *DLL) Prepend(val interface{}) {
