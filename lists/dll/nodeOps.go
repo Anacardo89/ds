@@ -40,10 +40,6 @@ func (l *DLL) InsertNodeAt(idx int, n *Node) error {
 	if idx > l.length {
 		return ErrOutOfBounds
 	}
-	if l.length == 0 {
-		l.PrependNode(n)
-		return nil
-	}
 	switch idx {
 	case 0:
 		l.PrependNode(n)

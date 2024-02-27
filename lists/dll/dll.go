@@ -66,10 +66,6 @@ func (l *DLL) InsertAt(idx int, val interface{}) error {
 	if idx > l.length {
 		return ErrOutOfBounds
 	}
-	if l.length == 0 {
-		l.Prepend(val)
-		return nil
-	}
 	switch idx {
 	case 0:
 		l.Prepend(val)
