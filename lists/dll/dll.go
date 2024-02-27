@@ -2,33 +2,11 @@ package dll
 
 import "errors"
 
-type Node struct {
-	next *Node
-	prev *Node
-	val  interface{}
-}
-
-func (n *Node) Next() (*Node, error) {
-	if n.next == (*Node)(nil) {
-		return nil, errors.New("next not set")
-	}
-	return n.next, nil
-}
-
-func (n *Node) Prev() (*Node, error) {
-	if n.prev == (*Node)(nil) {
-		return nil, errors.New("prev not set")
-	}
-	return n.prev, nil
-}
-
-func (n *Node) Val() interface{} {
-	return n.val
-}
-
-func (n *Node) SetVal(val interface{}) {
-	n.val = val
-}
+var (
+	ErrEmptyList   = errors.New("cannot perform operation in empty list")
+	ErrOutOfBounds = errors.New("index exceeds length of list")
+	ErrNotInList   = errors.New("value not in list")
+)
 
 type DLL struct {
 	length int
@@ -48,30 +26,16 @@ func (l *DLL) Length() int {
 
 func (l *DLL) Head() (interface{}, error) {
 	if l.length == 0 {
-		return nil, errors.New("empty list")
+		return nil, ErrEmptyList
 	}
 	return l.head.val, nil
 }
 
-func (l *DLL) HeadNode() (*Node, error) {
-	if l.length == 0 {
-		return nil, errors.New("empty list")
-	}
-	return l.head, nil
-}
-
 func (l *DLL) Tail() (interface{}, error) {
 	if l.length == 0 {
-		return nil, errors.New("empty list")
+		return nil, ErrEmptyList
 	}
 	return l.tail.val, nil
-}
-
-func (l *DLL) TailNode() (*Node, error) {
-	if l.length == 0 {
-		return nil, errors.New("empty list")
-	}
-	return l.tail, nil
 }
 
 func (l *DLL) Prepend(val interface{}) {
@@ -98,69 +62,20 @@ func (l *DLL) Append(val interface{}) {
 	l.length++
 }
 
-func (l *DLL) Remove(val interface{}) (interface{}, error) {
-	if l.length == 0 {
-		return val, errors.New("empty list")
-	}
-	if l.length == 1 {
-		l.head = nil
-		l.tail = nil
-		l.length--
-		return val, nil
-	}
-	if val == l.head.val {
-		l.head = l.head.next
-		l.head.prev = nil
-		l.length--
-		return val, nil
-	} else if val == l.tail.val {
-		l.tail = l.tail.prev
-		l.tail.next = nil
-		l.length--
-		return val, nil
-	}
-	current := l.head
-	var prev *Node
-	for i := 0; i < l.length; i++ {
-		if current.val == val {
-			break
-		}
-		prev = current
-		if current.next != nil {
-			current = current.next
-		} else {
-			return val, errors.New("value not in list")
-		}
-	}
-	prev.next = current.next
-	current = nil
-	l.length--
-	return val, nil
-}
-
 func (l *DLL) InsertAt(idx int, val interface{}) error {
 	if idx > l.length {
-		return errors.New("index exceeds length")
+		return ErrOutOfBounds
 	}
-	n := Node{val: val}
 	if l.length == 0 {
-		l.head = &n
-		l.tail = &n
-		l.length++
+		l.Prepend(val)
 		return nil
 	}
-	if idx == 0 {
-		n.next = l.head
-		l.head.prev = &n
-		l.head = &n
-		l.length++
+	switch idx {
+	case 0:
+		l.Prepend(val)
 		return nil
-	}
-	if idx == l.length {
-		l.tail.next = &n
-		n.prev = l.tail
-		l.tail = &n
-		l.length++
+	case l.length:
+		l.Append(val)
 		return nil
 	}
 	current, prev := l.head, l.head
@@ -168,56 +83,19 @@ func (l *DLL) InsertAt(idx int, val interface{}) error {
 		prev = current
 		current = current.next
 	}
-	n.next = current
-	prev.next = &n
-	current.prev = &n
+	n := Node{val: val}
+	n.next, n.prev = current, prev
+	prev.next, current.prev = &n, &n
 	l.length++
-	return nil
-}
-
-func (l *DLL) RemoveAt(idx int) error {
-	if l.length == 0 {
-		return errors.New("empty list")
-	}
-	if idx >= l.length {
-		return errors.New("index exceeds length")
-	}
-	if l.length == 1 {
-		l.length--
-		l.head = nil
-		l.tail = nil
-		return nil
-	}
-	if idx == 0 {
-		l.head = l.head.next
-		l.head.prev = nil
-		l.length--
-		return nil
-	}
-	if idx == l.length-1 {
-		l.tail = l.tail.prev
-		l.tail.next = nil
-		l.length--
-		return nil
-	}
-	current := l.head
-	var prev *Node
-	for i := 0; i < idx; i++ {
-		prev = current
-		current = current.next
-	}
-	prev.next = current.next
-	current = nil
-	l.length--
 	return nil
 }
 
 func (l *DLL) GetAt(idx int) (interface{}, error) {
 	if l.length == 0 {
-		return nil, errors.New("empty list")
+		return nil, ErrEmptyList
 	}
 	if idx >= l.length {
-		return nil, errors.New("index exceeds length")
+		return nil, ErrOutOfBounds
 	}
 	current := l.head
 	for i := 0; i < idx; i++ {
@@ -226,16 +104,76 @@ func (l *DLL) GetAt(idx int) (interface{}, error) {
 	return current.val, nil
 }
 
-func (l *DLL) WalkTo(idx int) (*Node, error) {
-	if l.length == 0 {
-		return nil, errors.New("empty list")
+func (l *DLL) Remove(val interface{}) error {
+	switch l.length {
+	case 0:
+		return ErrEmptyList
+	case 1:
+		if val == l.head.val {
+			l.head, l.tail = nil, nil
+			l.length--
+			return nil
+		}
 	}
-	if idx >= l.length {
-		return nil, errors.New("index exceeds length")
+	switch val {
+	case l.head.val:
+		l.head = l.head.next
+		l.head.prev = nil
+		l.length--
+		return nil
+	case l.tail.val:
+		l.tail = l.tail.prev
+		l.tail.next = nil
+		l.length--
+		return nil
 	}
-	current := l.head
-	for i := 0; i < idx; i++ {
+	current, prev := l.head.next, l.head
+	for i := 1; i < l.length-1; i++ {
+		if current.val == val {
+			prev.next = current.next
+			current.next.prev = prev
+			current = nil
+			l.length--
+			return nil
+		}
+		prev = current
 		current = current.next
 	}
-	return current, nil
+	return ErrNotInList
+}
+
+func (l *DLL) RemoveAt(idx int) error {
+	if l.length == 0 {
+		return ErrEmptyList
+	}
+	if idx >= l.length {
+		return ErrOutOfBounds
+	}
+	if l.length == 1 {
+		l.head, l.tail = nil, nil
+		l.length--
+		return nil
+	}
+	switch idx {
+	case 0:
+		l.head = l.head.next
+		l.head.prev = nil
+		l.length--
+		return nil
+	case l.length - 1:
+		l.tail = l.tail.prev
+		l.tail.next = nil
+		l.length--
+		return nil
+	}
+	current, prev := l.head, l.head
+	for i := 0; i < idx; i++ {
+		prev = current
+		current = current.next
+	}
+	prev.next = current.next
+	current.next.prev = prev
+	current = nil
+	l.length--
+	return nil
 }
