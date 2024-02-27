@@ -7,9 +7,9 @@ Because a codebase has to start somewhere
 I develop this as i need them or as i fancy
 
 Impletemented:
-- Singly Linked Lists (WIP)
-- Doubly Linked Lists
+- Singly Linked List
+- Doubly Linked List
 
 Tested:
-- Singly Linked Lists (WIP)
-- Doubly Linked Lists
+- Singly Linked List
+- Doubly Linked List

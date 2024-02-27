@@ -109,7 +109,7 @@ func TestDllInsertAt(t *testing.T) {
 		assert.Equal(t, l.tail.prev.val, 10)
 		assert.Equal(t, l.tail.prev.next.val, 30)
 	})
-	t.Run("InsertAt() - 0 < Index < Length ", func(t *testing.T) {
+	t.Run("InsertAt() - 0 < Index < Length", func(t *testing.T) {
 		_ = l.InsertAt(1, 40)
 		assert.Equal(t, l.head.next.val, 40)
 		assert.Equal(t, l.head.next.prev.val, 20)
