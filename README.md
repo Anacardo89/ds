@@ -2,9 +2,8 @@
 
 # Data structures
 
-Because a codebase has to start somewhere
-
-I develop this as i need them or as i fancy
+A DS library loosely based on The Primeagen FrontendMasters DS&A course:
+[Here](https://frontendmasters.com/courses/algorithms/) It's free, might as well right?
 
 Impletemented:
 - Singly Linked List
