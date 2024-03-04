@@ -9,8 +9,10 @@ Impletemented:
 - Singly Linked List
 - Doubly Linked List
 - Queue (Linked List)
+- Stack (Linked List)
 
 Tested:
 - Singly Linked List
 - Doubly Linked List
 - Queue (Linked List)
+- Stack (Linked List)
