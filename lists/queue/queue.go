@@ -2,7 +2,7 @@ package queue
 
 import "errors"
 
-var ErrEmptyQueue = errors.New("cannot dequeue an empty queue")
+var ErrEmptyQueue = errors.New("cannot perform operation on an empty queue")
 
 type node struct {
 	next *node
@@ -52,6 +52,9 @@ func (q *Queue) Dequeue() (interface{}, error) {
 	return val, nil
 }
 
-func (q *Queue) Peek() interface{} {
-	return q.head.val
+func (q *Queue) Peek() (interface{}, error) {
+	if q.length == 0 {
+		return nil, ErrEmptyQueue
+	}
+	return q.head.val, nil
 }
