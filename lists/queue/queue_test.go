@@ -42,7 +42,7 @@ func TestQueueEnqueue(t *testing.T) {
 
 func TestQueueDequeue(t *testing.T) {
 	q := New()
-	t.Run("Dequeue() - Err: empty list", func(t *testing.T) {
+	t.Run("Dequeue() - Err: empty queue", func(t *testing.T) {
 		_, err := q.Dequeue()
 		assert.Equal(t, err, ErrEmptyQueue)
 	})
@@ -65,15 +65,19 @@ func TestQueueDequeue(t *testing.T) {
 
 func TestQueuePeek(t *testing.T) {
 	q := New()
+	t.Run("Peek() - Err: empty queue", func(t *testing.T) {
+		_, err := q.Peek()
+		assert.Equal(t, err, ErrEmptyQueue)
+	})
 	q.Enqueue(57)
 	q.Enqueue(43)
 	q.Enqueue(29)
 	t.Run("Peek()", func(t *testing.T) {
-		val := q.Peek()
+		val, _ := q.Peek()
 		assert.Equal(t, val, 57)
 	})
 	t.Run("Peek() - 2nd time", func(t *testing.T) {
-		val := q.Peek()
+		val, _ := q.Peek()
 		assert.Equal(t, val, 57)
 	})
 }
