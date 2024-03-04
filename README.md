@@ -8,7 +8,9 @@ A DS library loosely based on The Primeagen FrontendMasters DS&A course:
 Impletemented:
 - Singly Linked List
 - Doubly Linked List
+- Queue (Linked List)
 
 Tested:
 - Singly Linked List
 - Doubly Linked List
+- Queue (Linked List)
