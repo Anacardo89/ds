@@ -80,7 +80,7 @@ func (a *Arrlst) Remove(val interface{}) (interface{}, error) {
 		return nil, ErrNotFound
 	}
 	ret := a.arr[idx]
-	for i := idx; i < a.len; i++ {
+	for i := idx; i < a.len-1; i++ {
 		a.arr[i] = a.arr[i+1]
 	}
 	a.arr[a.len-1] = nil
@@ -100,7 +100,7 @@ func (a *Arrlst) RemoveAt(idx int) (interface{}, error) {
 		return nil, ErrIdxOutOfBounds
 	}
 	ret := a.arr[idx]
-	for i := idx; i < a.len; i++ {
+	for i := idx; i < a.len-1; i++ {
 		a.arr[i] = a.arr[i+1]
 	}
 	a.arr[a.len-1] = nil
