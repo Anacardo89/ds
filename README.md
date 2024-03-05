@@ -10,9 +10,11 @@ Impletemented:
 - Doubly Linked List
 - Queue (Linked List)
 - Stack (Linked List)
+- ArrayList
 
 Tested:
 - Singly Linked List
 - Doubly Linked List
 - Queue (Linked List)
 - Stack (Linked List)
+- ArrayList
